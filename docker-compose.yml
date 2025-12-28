@@ -1,17 +1,18 @@
-version: "3"
+version: "3.8"
 
 services:
-  portfolio:
+  nginx:
     image: nginx:alpine
-    container_name: portfolio
+    container_name: portfolio-nginx
     restart: unless-stopped
     ports:
-      - "8081:80"
+      - "80:80"                          # accès: http://IP_DU_LXC/
     volumes:
-      - ./:/usr/share/nginx/html:ro
+      # Monte le dossier 'site' de ton repo dans la racine web d'nginx
+      - ./site:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
     networks:
-      - npm_net
+      - proxy
 
 networks:
-  npm_net:
-    external: true
+  proxy:
