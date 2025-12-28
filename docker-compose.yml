@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  portfolio:
+    image: nginx:alpine
+    container_name: portfolio
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    volumes:
+      - ./:/usr/share/nginx/html:ro
+    networks:
+      - npm_net
+
+networks:
+  npm_net:
+    external: true
